@@ -3,7 +3,9 @@ import os, strutils, times
 var instant = times.getLocalTime(times.getTime())
 
 let args = os.commandLineParams()
-if len(args) > 0:
+if len(args) > 1:
+    instant = times.parse(args[0] & " " & args[1], "yyyy-MM-dd HH:mm:ss")
+elif len(args) > 0:
     instant = times.parse(args[0], "yyyy-MM-dd HH:mm:ss")
 
 let month = Natural(instant.month)
