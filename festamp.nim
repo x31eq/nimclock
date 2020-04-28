@@ -1,6 +1,10 @@
-import strutils, times
+import os, strutils, times
 
-let instant = getLocalTime(getTime())
+var instant = times.getLocalTime(times.getTime())
+
+let args = os.commandLineParams()
+if len(args) > 0:
+    instant = times.parse(args[0], "yyyy-MM-dd HH:mm:ss")
 
 let month = Natural(instant.month)
 let quarter = instant.year * 4 + month div 3
