@@ -9,15 +9,16 @@ else:
     if '.' in stamp:
         let parts = strutils.split(stamp, '.')
         week = strutils.parseHexInt(parts[0])
-        time = strutils.parseHexInt((parts[1] & "0000")[..3])
+        time = strutils.parseHexInt((parts[1] & "00000")[..4])
     else:
         week = strutils.parseHexInt(stamp)
 
     let quarter = week div 16
     week = week mod 16
-    let halfday = time div 0x1000
-    let hour = (time div 0x100) mod 16 + 12 * (halfday mod 2)
-    let tick = time mod 0x100
+    let halfday = time div 0x10000
+    let hour = (time div 0x1000) mod 16 + 12 * (halfday mod 2)
+    let tick = time div 16 mod 0x100
+    let sec = time mod 16
 
     let year = quarter div 4 + 1024  # assumes unsigned
     let month = quarter mod 4 * 3 +
@@ -29,7 +30,7 @@ else:
 
     let toc = tick div 16 * 15 + tick mod 16
     let minute = toc div 4
-    let second = (toc mod 4) * 15
+    let second = (toc mod 4) * 15 + sec
 
     echo year, '-', month + 1, '-', day, ' ',
         hour, ':', minute, ':', second
