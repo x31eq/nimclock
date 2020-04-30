@@ -1,7 +1,7 @@
 import os, strutils, times
 
 let args = os.commandLineParams()
-if len(args) == 0:
+if args.len == 0:
     echo "Input a hex timestamp (date before :)"
 else:
     var date, time = 0
@@ -24,7 +24,7 @@ else:
     let month = quarter mod 4 * 3 +
                 (week * 16 + halfday div 2) div 0x55
     let qday = (month mod 3) * 38 - int(month == 2 or month == 11)
-    let wday = (int(times.getDayOfWeek(1, month + 1, year)) + 1) mod 7
+    let wday = (times.getDayOfWeek(1, month + 1, year).int + 1) mod 7
     let day = week * 7 + halfday div 2 +
                 (6 + qday - wday) mod 7 - qday - 5
 

@@ -3,17 +3,17 @@ import os, strutils, times
 var instant = times.getLocalTime(times.getTime())
 
 let args = os.commandLineParams()
-if len(args) > 1:
+if args.len > 1:
     instant = times.parse(args[0] & " " & args[1], "yyyy-MM-dd HH:mm:ss")
-elif len(args) > 0:
+elif args.len > 0:
     instant = times.parse(args[0], "yyyy-MM-dd HH:mm:ss")
 
-let month = Natural(instant.month)
+let month = instant.month.Natural
 let quarter = instant.year * 4 + month div 3
 var qday = month mod 3 * 38
 if month == 2 or month == 11:
     qday -= 1
-let weekday = (Natural(instant.weekday) + 1) mod 7
+let weekday = (instant.weekday.Natural + 1) mod 7
 qday += instant.monthday + 5 - weekday
 var sec = instant.second
 var tick = sec div 15 - sec div 60
