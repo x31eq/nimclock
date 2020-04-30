@@ -17,7 +17,7 @@ else:
     let week = date div 16 mod 16
     let halfday = date mod 16
     let hour = (time div 0x1000) mod 16 + 12 * (halfday mod 2)
-    let tick = time mod 0x1000 mod 0x100
+    let tick = time div 16 mod 0x100
     let sec = time mod 16
 
     let year = quarter div 4 + 1984  # assumes unsigned
