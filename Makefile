@@ -6,8 +6,8 @@ feedate: feedate.nim
 fedate: fedate.nim
 	nim c -d:release fedate.nim
 
-festamp: festamp.nim
+festamp: festamp.nim feetime.nim
 	nim c -d:release festamp.nim
 
-feestamp: feestamp.nim
+feestamp: feestamp.nim feetime.nim
 	nim c -d:release feestamp.nim
