@@ -31,5 +31,5 @@ proc timeFromArgs*(): Feetime =
     result.second -= result.tick * 15
 
 
-proc lowerHex*(x: BiggestInt, len: Positive): string =
+proc hex*(x: BiggestInt, len: Positive): string =
      strutils.toLowerAscii(strutils.toHex(x, len))
