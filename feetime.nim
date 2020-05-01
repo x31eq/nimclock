@@ -58,8 +58,12 @@ proc echoStandard*(dateIn: string, timeIn: string) =
     let minute = toc div 4
     let second = (toc mod 4) * 15 + sec
 
-    echo year, '-', month + 1, '-', day, ' ',
-        hour, ':', minute, ':', second
+    echo year, '-',
+         strutils.intToStr(month + 1, 2), '-',
+         strutils.intToStr(day, 2), ' ',
+         strutils.intToStr(hour, 2), ':',
+         strutils.intToStr(minute, 2), ':',
+         strutils.intToStr(second, 2)
 
 
 proc hex*(x: BiggestInt, len: Positive): string =
