@@ -1,9 +1,9 @@
 all: fedate feedate festamp feestamp
 
-feedate: feedate.nim
+feedate: feedate.nim feetime.nim
 	nim c -d:release feedate.nim
 
-fedate: fedate.nim
+fedate: fedate.nim feetime.nim
 	nim c -d:release fedate.nim
 
 festamp: festamp.nim feetime.nim

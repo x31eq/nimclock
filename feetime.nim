@@ -31,5 +31,36 @@ proc timeFromArgs*(): Feetime =
     result.second -= result.tick * 15
 
 
+proc echoStandard*(dateIn: string, timeIn: string) =
+    var date = strutils.parseHexInt(dateIn)
+    let time = strutils.parseHexInt(timeIn)
+
+    let quarter = date div 0x100
+    let week = date div 16 mod 16
+    let halfday = date mod 16
+    let hour = (time div 0x1000) mod 16 + 12 * (halfday mod 2)
+    let tick = time div 16 mod 0x100
+    let sec = time mod 16
+
+    var year = quarter div 4  # assumes unsigned
+    if dateIn.len < 5:
+        year += 1984
+    else:
+        year += 1024
+    let month = quarter mod 4 * 3 +
+                (week * 16 + halfday div 2) div 0x55
+    let qday = (month mod 3) * 38 - int(month == 2 or month == 11)
+    let wday = (times.getDayOfWeek(1, month + 1, year).int + 1) mod 7
+    let day = week * 7 + halfday div 2 +
+                (6 + qday - wday) mod 7 - qday - 5
+
+    let toc = tick div 16 * 15 + tick mod 16
+    let minute = toc div 4
+    let second = (toc mod 4) * 15 + sec
+
+    echo year, '-', month + 1, '-', day, ' ',
+        hour, ':', minute, ':', second
+
+
 proc hex*(x: BiggestInt, len: Positive): string =
      strutils.toLowerAscii(strutils.toHex(x, len))
