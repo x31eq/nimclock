@@ -18,6 +18,9 @@ proc timeFromArgs*(): Feetime =
             instant = times.parse(datetime, "yyyy-MM-dd HH:mm:ss")
         elif strutils.contains(datetime, 'T'):
             instant = times.parse(datetime, "yyyy-MM-ddTHH:mm:ss")
+        elif strutils.contains(datetime, ':'):
+            instant = times.parse(
+                "1984-01-01 " & datetime, "yyyy-MM-dd HH:mm:ss")
         else:
             instant = times.parse(datetime, "yyyy-MM-dd")
 
