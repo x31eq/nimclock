@@ -1,0 +1,45 @@
+Here are some Nim utilities for dealing with hex calendar/clocks.
+They aren't at all useful, and anyway I've already implemented them
+in Korn Shell, Rust, and Zig, and you can probably found those repositories
+if you found this one.
+
+The point is to use a simple example to learn Nim.  What I learned is that
+it works quite well, and has a comprehensive standard library for
+a young language, but also has some peculiarities.  If it catches on
+and becomes one of the languages we all have to use in 10 years time
+it wouldn't be a disaster.
+
+I wrote this with Nim 0.17.2, which comes with Ubuntu 18.04.
+I also got it building with Nim 1.2.0 in a Debian chroot.
+It uses some deprecated procedures.  Also, leap seconds don't work
+with Nim 1.2.0 and I don't know why that is but it seems to be
+a regression in the standard library.
+
+The numbers say the Nim binaries are a lot bigger than with Zig,
+and about the same as Rust with Xargo, which means much smaller
+than Rust builds with the standard toolchain.  It also happens
+that the source code is about half the size of Rust or Zig
+for much the same functionality.  I'm not sure how this came
+about, and it's at least partly because I structured some things
+differently.  The code shared by different utilities is the
+targeted at getting those utilities to work instead of being
+generic code that could be reused in other applications
+making use of these time stamps.
+
+Nim is clearly a higher-level language than Zig and has a much
+better standard library.  (Zig is less mature and so might improve
+in the future.)  The standard library is more comprehensive than
+Rust's.  I didn't need any third party libraries to implement this.
+With Rust, I used a library for getting the time and for Zig I
+linked that directly against the standard C libraries.  Rust and Nim
+also have a lot of higher-level features that I didn't need,
+so this isn't a useful project for comparing them.
+
+Nim is sometimes described as being like Python but statically typed.
+It isn't at all.  There are some superficial similarities,
+but plenty of needless differences, so it's best to think of Nim
+as in independent language.  Still, it's the best option I know
+for Python developers who want to reimplement a module in something
+C-compatible because it's easy to pick up and has fairly clean syntax
+and a good standard library.  Because that standard library does
+what I need, I haven't tried interoperation with other languages.
