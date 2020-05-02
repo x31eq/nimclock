@@ -1,4 +1,4 @@
-all: fedate feedate festamp feestamp
+all: fedate feedate festamp feestamp decode
 
 feedate: feedate.nim feetime.nim
 	nim c -d:release feedate.nim
@@ -11,3 +11,6 @@ festamp: festamp.nim feetime.nim
 
 feestamp: feestamp.nim feetime.nim
 	nim c -d:release feestamp.nim
+
+decode: decode.nim feetime.nim
+	nim c -d:release decode.nim
