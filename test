@@ -87,9 +87,9 @@ fe_test()
     else
         # Time part only
         local measured=$( ./festamp "$*")
-        if [ "${measured#*.}" != "${expected#*.}" ]
+        if [ "${measured#*.?}" != "${expected#*.?}" ]
         then
-            echo "./festamp $* doesn't end with :${expected.*:}" >&2
+            echo "./festamp $* doesn't end with .?${expected#*.?}" >&2
             exit 1
         fi
         measured=$( ./fedate $expected | cut -d ' ' -f 2)
