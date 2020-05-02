@@ -55,8 +55,11 @@ proc echoStandard*(dateIn: string, timeIn: string) =
             year += strutils.parseInt(os.getEnv("HEXEPOCH"))
         except ValueError:
             year += 1984
-    else:
-        year += 1024
+    elif dateIn.len < 6:
+        if year < 896:
+            year += 2048
+        else:
+            year += 1024
     let month = quarter mod 4 * 3 +
                 (week * 16 + halfday div 2) div 0x55
     let qday = (month mod 3) * 38 - int(month == 2 or month == 11)
