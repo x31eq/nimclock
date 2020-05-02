@@ -63,8 +63,7 @@ proc echoStandard*(dateIn: string, timeIn: string) =
             year += 2048
         else:
             year += 1024
-    let month = quarter mod 4 * 3 +
-                (week * 16 + halfday div 2) div 0x55
+    let month = quarter mod 4 * 3 + (week * 16 + halfday) div 0x55
     let qday = (month mod 3) * 38 - int(month == 2 or month == 11)
     let wday = (times.getDayOfWeek(1, month + 1, year).int + 1) mod 7
     let day = week * 7 + halfday div 2 +
