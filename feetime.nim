@@ -34,10 +34,10 @@ proc timeFromArgs*(): Feetime =
     result.week = qday div 7
     result.halfday = weekday * 2 + Natural(instant.hour > 11)
     result.hour = instant.hour mod 12
-    result.second = instant.second
-    result.tick = result.second div 15 - result.second div 60
+    let sec = instant.second
+    result.tick = sec div 15 - sec div 60
+    result.second = sec - result.tick * 15
     result.tick += instant.minute * 4
-    result.second -= result.tick * 15
 
 
 proc echoStandard*(dateIn: string, timeIn: string) =
