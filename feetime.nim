@@ -13,12 +13,10 @@ proc timeFromArgs*(): Feetime =
     if args.len > 1:
         instant = times.parse(args[0] & " " & args[1], "yyyy-MM-dd HH:mm:ss")
     elif args.len > 0:
-        let datetime = args[0]
-        if strutils.contains(datetime, ' '):
+        let datetime = args[0].replace('T', ' ')
+        if strutils.contains(datetime, " "):
             instant = times.parse(datetime, "yyyy-MM-dd HH:mm:ss")
-        elif strutils.contains(datetime, 'T'):
-            instant = times.parse(datetime, "yyyy-MM-ddTHH:mm:ss")
-        elif strutils.contains(datetime, ':'):
+        elif strutils.contains(datetime, ":"):
             instant = times.parse(datetime, "HH:mm:ss")
         else:
             instant = times.parse(datetime, "yyyy-MM-dd")

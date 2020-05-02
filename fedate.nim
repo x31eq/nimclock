@@ -13,4 +13,4 @@ else:
         time = (parts[1] & "00000")[..4]
     else:
         week = stamp
-    echoStandard(week & time[0], time[1..5])
+    echoStandard(week & time[0], time[1..4])

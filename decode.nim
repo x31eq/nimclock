@@ -16,7 +16,7 @@ else:
         let week = parts[0]
         time = (parts[1] & "00000")[..4]
         date = week & time[0]
-        time = time[1..5]
+        time = time[1..4]
     else:
         date = stamp & "0"
     echoStandard(date, time)
