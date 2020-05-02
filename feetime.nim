@@ -53,7 +53,10 @@ proc echoStandard*(dateIn: string, timeIn: string) =
 
     var year = quarter div 4  # assumes unsigned
     if dateIn.len < 5:
-        year += 1984
+        try:
+            year += strutils.parseInt(os.getEnv("HEXEPOCH"))
+        except ValueError:
+            year += 1984
     else:
         year += 1024
     let month = quarter mod 4 * 3 +
