@@ -13,7 +13,11 @@ proc timeFromArgs*(): Feetime =
     if args.len > 1:
         instant = times.parse(args[0] & " " & args[1], "yyyy-MM-dd HH:mm:ss")
     elif args.len > 0:
-        instant = times.parse(args[0], "yyyy-MM-dd HH:mm:ss")
+        let datetime = args[0]
+        if strutils.contains(datetime, ' '):
+            instant = times.parse(datetime, "yyyy-MM-dd HH:mm:ss")
+        else:
+            instant = times.parse(datetime, "yyyy-MM-dd")
 
     let month = instant.month.Natural
     var qday = month mod 3 * 38
