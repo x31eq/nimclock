@@ -14,7 +14,10 @@ proc timeFromArgs*(): Feetime =
         instant = times.parse(args[0] & " " & args[1], "yyyy-MM-dd HH:mm:ss")
     elif args.len > 0:
         let datetime = args[0].replace('T', ' ')
-        if strutils.contains(datetime, " "):
+        if datetime[0] == '@':
+            let unixStamp = strutils.parseInt(datetime[1..datetime.high])
+            instant = times.getLocalTime(times.fromSeconds(unixStamp))
+        elif strutils.contains(datetime, " "):
             instant = times.parse(datetime, "yyyy-MM-dd HH:mm:ss")
         elif strutils.contains(datetime, ":"):
             instant = times.parse(datetime, "HH:mm:ss")
