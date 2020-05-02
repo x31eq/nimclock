@@ -21,7 +21,8 @@ proc timeFromArgs*(): Feetime =
         else:
             instant = times.parse(datetime, "yyyy-MM-dd")
 
-    let month = instant.month.Natural
+    # Nim redefined the month numbering at some point
+    let month = instant.month.Natural - times.Month.mJan.Natural
     var qday = month mod 3 * 38
     if month == 2 or month == 11:
         qday -= 1
