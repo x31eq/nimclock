@@ -67,8 +67,7 @@ proc echoStandard*(dateIn: string, timeIn: string) =
     let qday = (month mod 3) * 38 - int(month == 2 or month == 11)
     let nimMonth = times.Month(month + 1)
     let wday = (times.getDayOfWeek(1, nimMonth, year).int + 1) mod 7
-    let day = week * 7 + halfday div 2 +
-                (6 + qday - wday) mod 7 - qday - 5
+    let day = week * 7 + halfday div 2 + (6 + qday - wday) mod 7 - qday - 5
 
     let toc = tick div 16 * 15 + tick mod 16
     let minute = toc div 4
