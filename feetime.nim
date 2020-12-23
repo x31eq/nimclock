@@ -7,22 +7,26 @@ type
 
 
 proc timeFromArgs*(): Feetime =
-    var instant = times.local(times.getTime())
+    var timeFormat = "yyyy-MM-dd HH:mm:ss"
+    var timeString = format(times.local(times.getTime()), timeFormat)
 
     let args = os.commandLineParams()
     if args.len > 1:
-        instant = times.parse(args[0] & " " & args[1], "yyyy-MM-dd HH:mm:ss")
+        timeString = args[0] & " " & args[1]
     elif args.len > 0:
         let datetime = args[0].replace('T', ' ')
         if datetime[0] == '@':
             let unixStamp = strutils.parseInt(datetime[1..datetime.high])
-            instant = times.local(times.fromUnix(unixStamp))
+            var stamp = times.local(times.fromUnix(unixStamp))
+            timeString = format(stamp, timeFormat)
         elif strutils.contains(datetime, " "):
-            instant = times.parse(datetime, "yyyy-MM-dd HH:mm:ss")
+            timeString = datetime
         elif strutils.contains(datetime, ":"):
-            instant = times.parse(datetime, "HH:mm:ss")
+            timeString = times.getDateStr() & " " & datetime
         else:
-            instant = times.parse(datetime, "yyyy-MM-dd")
+            timeString = datetime & " 00:00:00"
+
+    var instant = times.parse(timeString, "yyyy-MM-dd HH:mm:ss")
 
     # Nim redefined the month numbering at some point
     let month = instant.month.Natural - times.Month.mJan.Natural
