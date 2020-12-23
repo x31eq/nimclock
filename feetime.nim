@@ -1,4 +1,4 @@
-import os, strutils, times
+import os, strutils, strscans, times
 
 type
     Feetime* = object
@@ -28,23 +28,27 @@ proc timeFromArgs*(): Feetime =
     else:
         timeString = format(times.local(times.getTime()), timeFormat)
 
-    var instant = times.parse(timeString, "yyyy-MM-dd HH:mm:ss")
+    var year, month, day, hour, minute, sec: int
+    if strscans.scanf(timeString, "$i-$i-$i $i:$i:$i",
+        year, month, day, hour, minute, sec):
+        month -= 1
+    else:
+        echo "Failed to parse ", timeString
+        # Now what?
 
-    # Nim redefined the month numbering at some point
-    let month = instant.month.Natural - times.Month.mJan.Natural
     var qday = month mod 3 * 38
     if month == 2 or month == 11:
         qday -= 1
-    let weekday = (instant.weekday.Natural + 1) mod 7
-    qday += instant.monthday + 5 - weekday
-    result.quarter = instant.year * 4 + month div 3
+    let nimMonth = times.Month(month + times.Month.mJan.Natural)
+    let weekday = (times.getDayOfWeek(day, nimMonth, year).int + 1) mod 7
+    qday += day + 5 - weekday
+    result.quarter = year * 4 + month div 3
     result.week = qday div 7
-    result.halfday = weekday * 2 + Natural(instant.hour > 11)
-    result.hour = instant.hour mod 12
-    let sec = instant.second
+    result.halfday = weekday * 2 + Natural(hour > 11)
+    result.hour = hour mod 12
     result.tick = sec div 15 - sec div 60
     result.second = sec - result.tick * 15
-    result.tick += instant.minute * 4
+    result.tick += minute * 4
 
 
 proc echoStandard*(dateIn: string, timeIn: string) =

@@ -169,7 +169,7 @@ fedate_test()
 
 # Flag to skip TZ tests.
 # Nim's current standard library ignores TZ.
-skiptz=true
+skiptz=false
 
 # Pretend the internal clock is in atomic time
 # so that leap seconds are expressible
@@ -178,7 +178,7 @@ export TZ=right/UTC
 fee_test 0008:0000 1920-01-01
 fee_test d3ec:8000 1972-12-30 08:00:00
 fee_test d3f1:b800 1972-12-31 23:30:00
-$skiptz || fee_test d3f1:bfef 1972-12-31 23:59:60
+fee_test d3f1:bfef 1972-12-31 23:59:60
 fee_test d402:0000 1973-01-01 00:00:00
 fee_test 0000:0000 1984-01-01
 fee_test 0303:0303 1984-10-01 12:11:18
@@ -197,7 +197,7 @@ fee_test 8167:094b 2016-05-04 12:34:56
 fee_test 816a:0000 2016-05-06 00:00:00
 fee_test 816b:0c0d 2016-05-06 12:45:13
 fee_test 816b:bfee 2016-05-06 23:59:59
-$skiptz || fee_test 83fd:bfef 2016-12-31 23:59:60
+fee_test 83fd:bfef 2016-12-31 23:59:60
 fee_test 8765:4321 2017-11-07 16:11:46
 fee_test 8888:8888 2018-02-22 08:32:08
 fee_test b00c:0000 2028-01-01
