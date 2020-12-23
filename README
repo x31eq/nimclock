@@ -16,8 +16,24 @@ with Nim 1.2.0 and I don't know why that is but it seems to be
 a regression in the standard library.
 
 Update: this is building without deprecation warnings in Nim 0.19.4.
-Leap seconds are broken.  It looks like this is because the timezone
-comes from `/etc/localtime` instead of the `TZ` environment variable.
+Leap seconds are broken.  The current documentation says:
+
+    Represents a time in different parts. Although this type can represent leap
+    seconds, they are generally not supported in this module. They are not
+    ignored, but the DateTime's returned by procedures in this module will
+    never have a leap second.
+
+    https://nim-lang.org/docs/times.html
+
+This is pretty poor.  Leap seconds are rare, but they exist, and the
+message for application developers is that standard libraries
+should sort them out.
+
+Also, on the same page:
+
+    The times module only supplies implementations for the systems local time and UTC.
+
+I've disabled tests involving TZ because of this.
 
 The numbers say the Nim binaries are a bit bigger than with Zig,
 and smaller than Rust with Xargo, which means much smaller
@@ -45,5 +61,5 @@ but plenty of needless differences, so it's best to think of Nim
 as in independent language.  Still, it's the best option I know
 for Python developers who want to reimplement a module in something
 C-compatible because it's easy to pick up and has fairly clean syntax
-and a good standard library.  Because that standard library does
+and a good standard library.  Because that standard library did
 what I need, I haven't tried interoperation with other languages.
