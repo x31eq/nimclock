@@ -65,7 +65,7 @@ proc echoStandard*(dateIn: string, timeIn: string) =
             year += 1024
     let month = quarter mod 4 * 3 + (week * 16 + halfday) div 0x55
     let qday = (month mod 3) * 38 - int(month == 2 or month == 11)
-    let nimMonth = times.Month(month + 1)
+    let nimMonth = times.Month(month + times.Month.mJan.Natural)
     let wday = (times.getDayOfWeek(1, nimMonth, year).int + 1) mod 7
     let day = week * 7 + halfday div 2 + (6 + qday - wday) mod 7 - qday - 5
 
@@ -74,7 +74,7 @@ proc echoStandard*(dateIn: string, timeIn: string) =
     let second = (toc mod 4) * 15 + sec
 
     echo year, '-',
-         strutils.intToStr(month + 1, 2), '-',
+         strutils.intToStr(month + times.Month.mJan.Natural, 2), '-',
          strutils.intToStr(day, 2), ' ',
          strutils.intToStr(hour, 2), ':',
          strutils.intToStr(minute, 2), ':',
