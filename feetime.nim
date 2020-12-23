@@ -8,7 +8,7 @@ type
 
 proc timeFromArgs*(): Feetime =
     var timeFormat = "yyyy-MM-dd HH:mm:ss"
-    var timeString = format(times.local(times.getTime()), timeFormat)
+    var timeString = ""
 
     let args = os.commandLineParams()
     if args.len > 1:
@@ -25,6 +25,8 @@ proc timeFromArgs*(): Feetime =
             timeString = times.getDateStr() & " " & datetime
         else:
             timeString = datetime & " 00:00:00"
+    else:
+        timeString = format(times.local(times.getTime()), timeFormat)
 
     var instant = times.parse(timeString, "yyyy-MM-dd HH:mm:ss")
 
