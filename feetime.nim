@@ -7,7 +7,7 @@ type
 
 
 proc timeFromArgs*(): Feetime =
-    var timeFormat = "yyyy-MM-dd HH:mm:ss"
+    let timeFormat = "yyyy-MM-dd HH:mm:ss"
     var timeString = ""
 
     let args = os.commandLineParams()
