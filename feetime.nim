@@ -1,4 +1,4 @@
-import os, strutils, strscans, times
+import os, strutils, strscans, system, times
 
 type
     Feetime* = object
@@ -33,8 +33,7 @@ proc timeFromArgs*(): Feetime =
         year, month, day, hour, minute, sec):
         month -= 1
     else:
-        echo "Failed to parse ", timeString
-        # Now what?
+        system.quit(system.QuitFailure)
 
     var qday = month mod 3 * 38
     if month == 2 or month == 11:
