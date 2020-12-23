@@ -10,8 +10,6 @@ else:
     if ':' in stamp:
         let parts = strutils.split(stamp, ':')
         date = parts[0]
-        if date == "":
-            date = "0000"
         time = (parts[1] & "0000")[..3]
     else:
         date = stamp

@@ -10,8 +10,6 @@ else:
     if '.' in stamp:
         let parts = strutils.split(stamp, '.')
         week = parts[0]
-        if week == "":
-            week = "00000"
         time = (parts[1] & "00000")[..4]
     else:
         week = stamp

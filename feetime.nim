@@ -46,7 +46,9 @@ proc timeFromArgs*(): Feetime =
 
 
 proc echoStandard*(dateIn: string, timeIn: string) =
-    var date = strutils.parseHexInt(dateIn)
+    var date = 0
+    if dateIn != "":
+        date = strutils.parseHexInt(dateIn)
     let time = strutils.parseHexInt(timeIn)
 
     let quarter = date div 0x100
