@@ -7,7 +7,7 @@ type
 
 
 proc timeFromArgs*(): Feetime =
-    var instant = times.getLocalTime(times.getTime())
+    var instant = times.local(times.getTime())
 
     let args = os.commandLineParams()
     if args.len > 1:
@@ -16,7 +16,7 @@ proc timeFromArgs*(): Feetime =
         let datetime = args[0].replace('T', ' ')
         if datetime[0] == '@':
             let unixStamp = strutils.parseInt(datetime[1..datetime.high])
-            instant = times.getLocalTime(times.fromSeconds(unixStamp))
+            instant = times.local(times.fromUnix(unixStamp))
         elif strutils.contains(datetime, " "):
             instant = times.parse(datetime, "yyyy-MM-dd HH:mm:ss")
         elif strutils.contains(datetime, ":"):
@@ -65,7 +65,8 @@ proc echoStandard*(dateIn: string, timeIn: string) =
             year += 1024
     let month = quarter mod 4 * 3 + (week * 16 + halfday) div 0x55
     let qday = (month mod 3) * 38 - int(month == 2 or month == 11)
-    let wday = (times.getDayOfWeek(1, month + 1, year).int + 1) mod 7
+    let nimMonth = times.Month(month + 1)
+    let wday = (times.getDayOfWeek(1, nimMonth, year).int + 1) mod 7
     let day = week * 7 + halfday div 2 +
                 (6 + qday - wday) mod 7 - qday - 5
 

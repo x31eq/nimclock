@@ -15,6 +15,9 @@ It uses some deprecated procedures.  Also, leap seconds don't work
 with Nim 1.2.0 and I don't know why that is but it seems to be
 a regression in the standard library.
 
+Update: this is building without deprecation warnings in Nim 0.19.4.
+Leap seconds are broken.
+
 The numbers say the Nim binaries are a bit bigger than with Zig,
 and smaller than Rust with Xargo, which means much smaller
 than Rust builds with the standard toolchain.  It also happens
